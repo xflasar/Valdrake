@@ -1,0 +1,22 @@
+CREATE TABLE users (
+id SERIAL PRIMARY KEY,
+username VARCHAR(255) UNIQUE NOT NULL,
+password VARCHAR(255) NOT NULL,
+email VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE transactions(
+id SERIAL PRIMARY KEY,
+user_id INT REFERENCES users(id) ON DELETE CASCADE,
+amount DECIMAL(10, 2) NOT NULL,
+transaction_type VARCHAR(10) CHECK (transaction_type IN ('earning', 'expense')),
+timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE item_levels (
+id SERIAL PRIMARY KEY,
+user_id INT REFERENCES users(id) ON DELETE CASCADE,
+slot_name VARCHAR(50) NOT NULL,
+item_level INT NOT NULL,
+timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
